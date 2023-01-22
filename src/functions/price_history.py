@@ -5,7 +5,7 @@ import os
 import pandas as pd
 import yfinance as yf
 
-def get_price_history(ticker_list:str=[], period:str='5d', interval:str='1d', save_csv:bool=False):
+def get_price_history(ticker_list:str=[], period:str='5d', interval:str='1d', save_csv:bool=False, open_change_period:int=1):
     
     '''
     example call: get_price_history(ticker_list=['AAPL', 'MSFT'], save_csv=True)
@@ -18,9 +18,11 @@ def get_price_history(ticker_list:str=[], period:str='5d', interval:str='1d', sa
     for ticker in ticker_list:
         data = yf.download(tickers=ticker, group_by="Ticker", period=period, interval=interval)
         data['Stock Code'] = ticker
+        data["Open Change"] = data["Open"].pct_change(open_change_period)
         df_list.append(data)
     
     price_history_df = pd.concat(df_list)
+    price_history_df.reset_index(inplace=True)
 
     if save_csv == True:
         price_history_df.to_csv('data\price_history.csv')
