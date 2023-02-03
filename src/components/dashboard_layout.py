@@ -1,6 +1,6 @@
 # Third party imports
 from dash import Dash ,html, dcc
-
+from dash.dependencies import Input, Output
 # Local import
 
 def dropdown_button(app: Dash, title:str='', item_list:list=[]) -> html.Div:  
@@ -8,6 +8,13 @@ def dropdown_button(app: Dash, title:str='', item_list:list=[]) -> html.Div:
     #IDs
     DROPDOWN = 'dropdown-id'
     SELECT_ALL_BUTTON = 'select-all-button'
+
+    @app.callback(
+        Output(DROPDOWN, "value"),
+        Input(SELECT_ALL_BUTTON, "n_clicks"),
+    )
+    def select_all(_:int) -> list[str]:
+        return item_list
 
     return html.Div(
         children=[
@@ -22,8 +29,8 @@ def dropdown_button(app: Dash, title:str='', item_list:list=[]) -> html.Div:
                 id=SELECT_ALL_BUTTON,
                 className="dropdown-button",
                 children=["Select All"],
-                multi=True,
-            )
+                n_clicks=0,
+            ),
         ]
     )
 
@@ -39,6 +46,6 @@ def create_layout(app: Dash) -> html.Div:
                     dropdown_button(app, 'test', ['one', 'two', 'three']),
                 ],
             ),
-            bar_chart.render(app),
+            #bar_chart.render(app),
         ],
     )
