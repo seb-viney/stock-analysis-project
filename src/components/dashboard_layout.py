@@ -34,7 +34,7 @@ def dropdown_button(app: Dash, title:str='', item_list:list=[]) -> html.Div:
         ]
     )
 
-def create_layout(app: Dash) -> html.Div:
+def create_layout(app: Dash, dropdown_title:str='', dropdown_item_list:list=[]) -> html.Div:
     return html.Div(
         className="app-div",
         children=[
@@ -43,7 +43,7 @@ def create_layout(app: Dash) -> html.Div:
             html.Div(
                 className="dropdown-container",
                 children=[
-                    dropdown_button(app, 'test', ['one', 'two', 'three']),
+                    dropdown_button(app, dropdown_title, dropdown_item_list),
                 ],
             ),
             #bar_chart.render(app),
