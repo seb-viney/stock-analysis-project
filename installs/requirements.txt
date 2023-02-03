@@ -1,5 +1,7 @@
 pandas
 pandas-ta
+pandas-stubs
 numpy
 matplotlib
+plotly
 yfinance
