@@ -2,16 +2,13 @@
 from dash import Dash ,html, dcc
 from dash.dependencies import Input, Output
 # Local import
+from . import ids
 
 def dropdown_button(app: Dash, title:str='', item_list:list=[]) -> html.Div:  
 
-    #IDs
-    DROPDOWN = 'dropdown-id'
-    SELECT_ALL_BUTTON = 'select-all-button'
-
     @app.callback(
-        Output(DROPDOWN, "value"),
-        Input(SELECT_ALL_BUTTON, "n_clicks"),
+        Output(ids.DROPDOWN, "value"),
+        Input(ids.SELECT_ALL_BUTTON, "n_clicks"),
     )
     def select_all(_:int) -> list[str]:
         return item_list
@@ -20,13 +17,13 @@ def dropdown_button(app: Dash, title:str='', item_list:list=[]) -> html.Div:
         children=[
             html.H6(title),
             dcc.Dropdown(
-                id=DROPDOWN,
+                id=ids.DROPDOWN,
                 options=[{"label": item, "value": item} for item in item_list],
                 value=item_list,
                 multi=True,
             ),
             html.Button(
-                id=SELECT_ALL_BUTTON,
+                id=ids.SELECT_ALL_BUTTON,
                 className="dropdown-button",
                 children=["Select All"],
                 n_clicks=0,
