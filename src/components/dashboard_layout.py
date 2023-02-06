@@ -1,8 +1,27 @@
 # Third party imports
 from dash import Dash ,html, dcc
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
 # Local import
 from . import ids
+
+def input_items(app: Dash):
+    @app.callback(
+        Output('output-container-button', 'children'),
+        [Input('button-example-1', 'n_clicks')],
+        [State('input-box', 'value')])
+    def update_output(n_clicks, value):
+        return 'The input value was "{}" and the button has been clicked {} times'.format(
+            value,
+            n_clicks
+        )
+    return html.Div(
+        children=[
+            html.Div(dcc.Input(id='input-box', type='text')),
+            html.Button('Submit', id='button-example-1'),
+            html.Div(id='output-container-button',
+            children='Enter a value and press submit')
+        ]
+    )
 
 def dropdown_button(app: Dash, title:str='', item_list:list=[]) -> html.Div:  
 
@@ -40,7 +59,8 @@ def create_layout(app: Dash, dropdown_title:str='', dropdown_item_list:list=[]) 
             html.Div(
                 className="dropdown-container",
                 children=[
-                    dropdown_button(app, dropdown_title, dropdown_item_list),
+                    input_items(app),
+                    dropdown_button(app, dropdown_title, dropdown_item_list),                    
                 ],
             ),
             #bar_chart.render(app),

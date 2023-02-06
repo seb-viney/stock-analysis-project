@@ -6,12 +6,13 @@ from dash.dependencies import Input, Output
 # Local import
 from . import ids
 
-def line_chart(dataframe, colour:str="Stock Code", x_axis:str="Date", y_axis:str="Open Change"):
+def line_chart(app: Dash, dataframe, colour:str="Stock Code",
+                x_axis:str="Date", y_axis:str="Open Change") -> html.Div:
     
     '''
-    example call: data_visualization.line_chart(dataframe=data[["Open","Stock Code"]])
+    example call: data_visualization.line_chart(app, dataframe=data[["Open","Stock Code"]])
     dataframe: The data
-    hue: Which column in the data to compare
+    colour: Which column in the data to compare
     '''
 
     @app.callback(
