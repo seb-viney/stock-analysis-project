@@ -3,7 +3,7 @@ from dash import Dash ,html
 from dash_bootstrap_components.themes import BOOTSTRAP
 
 # Local import
-from components import dashboard_layout, price_history, data_visualization
+from components import dashboard, price_history, data_visualization
 
 
 def main():
@@ -12,7 +12,7 @@ def main():
 
     app = Dash(external_stylesheets=[BOOTSTRAP])
     app.title = "Insert Dashboard Title Here"
-    app.layout = dashboard_layout.create_layout(app,dropdown_title ='Stock Codes', dropdown_item_list=search_list)
+    app.layout = dashboard.create_layout(app,dropdown_title ='Stock Codes', dropdown_item_list=search_list)
     app.run()
 
     data_visualization.line_chart(dataframe=data[["Date","Open Change","Stock Code"]],

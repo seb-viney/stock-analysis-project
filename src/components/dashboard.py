@@ -11,7 +11,8 @@ def input_items(app: Dash):
         [State('input-box', 'value')])
     def update_output(n_clicks, value):
         data = price_history.get_price_history(ticker_list=[value], save_csv=True, period='2y')
-        return 'The input value was "{}" and the button has been clicked {} times'.format(
+        print(data.head())
+        return 'The input value was "{}"'.format(
             value,
             n_clicks,
             data
