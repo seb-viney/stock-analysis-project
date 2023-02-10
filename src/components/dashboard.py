@@ -2,7 +2,7 @@
 from dash import Dash ,html, dcc
 from dash.dependencies import Input, Output, State
 # Local import
-from . import ids
+from . import ids, price_history
 
 def input_items(app: Dash):
     @app.callback(
@@ -10,9 +10,11 @@ def input_items(app: Dash):
         [Input('button-example-1', 'n_clicks')],
         [State('input-box', 'value')])
     def update_output(n_clicks, value):
+        data = price_history.get_price_history(ticker_list=[value], save_csv=True, period='2y')
         return 'The input value was "{}" and the button has been clicked {} times'.format(
             value,
-            n_clicks
+            n_clicks,
+            data
         )
     return html.Div(
         children=[
