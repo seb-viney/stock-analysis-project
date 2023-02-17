@@ -1,6 +1,6 @@
 # Third party imports
 from dash import Dash ,html
-from dash_bootstrap_components.themes import BOOTSTRAP
+from dash_bootstrap_components.themes import LUX
 
 # Local import
 from components import dashboard, price_history, data_visualization
@@ -10,7 +10,7 @@ def main():
     search_list=['GOOG', 'GOOGL', 'MSFT', 'AMZN']
     data = price_history.get_price_history(ticker_list=search_list, save_csv=True, period='2y')
 
-    app = Dash(external_stylesheets=[BOOTSTRAP])
+    app = Dash(external_stylesheets=[LUX])
     app.title = "Insert Dashboard Title Here"
     app.layout = dashboard.create_layout(app,dropdown_title ='Stock Codes', dropdown_item_list=search_list)
     app.run()
