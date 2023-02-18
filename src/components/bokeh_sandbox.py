@@ -95,7 +95,7 @@ indicator_choice = MultiChoice(options=["100 Day SMA",
                                         "30 Day SMA",
                                         "Linear Regression Line"])
 
-load_button = Button(label="Load data", button_type="success")
+load_button = Button(label="Load Data", button_type="success")
 load_button.on_click(lambda: on_button_click(stock1_text.value, stock2_text.value, 
                                              date_picker_from.value, date_picker_to.value,
                                              indicator_choice.value
@@ -109,7 +109,10 @@ layout = column(stock1_text,
                 load_button)
 curdoc().clear()
 curdoc().add_root(layout)
-
+on_button_click("GOOG", "MSFT", 
+                    "2020-01-01", todays_date,
+                    ["100 Day SMA", "30 Day SMA", "Linear Regression Line"]
+                )
 
 if __name__ == "__main__":
     ticker1_df, ticker2_df = load_data('goog', 'msft', "2020-01-01", dt.datetime.now().strftime("%Y-%m-%d"))
